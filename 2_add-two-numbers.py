@@ -103,6 +103,9 @@ def addTwoNumbers(l1, l2):
     #     after iterating over the whole list, the linked list will be complete
     #     with result pointing to the last item in the list and dummy pointing to
     #     the entire linked list.
+    #     
+    #     Ideal naming would not be "result" and "dummy"
+    #     Better would be "current_result" and "container"
 
     for letter in ans_list:
         result.next = ListNode(int(letter))
@@ -111,3 +114,47 @@ def addTwoNumbers(l1, l2):
     # dummy.next is returned because the first value in dummy is 0
     # (see the linked list definition above)
     return dummy.next
+
+
+######################
+# DIFFERENT SOLUTION #
+######################
+def addTwoNumbers(l1, l2):
+
+    # initialize the linked list
+    container = ListNode()
+    current_result = container
+
+    # remember the carry
+    carry = 0
+
+    while (l1 or l2 or carry):
+        # pull the first values from each input linked list
+        l1_value = l1.val if l1 is not None else 0
+        l2_value = l2.val if l2 is not None else 0
+
+        # new digit to insert into the final result
+        insert_value = l1_value + l2_value + carry
+
+        # get the carry
+        # floor division is used so that when the insert_value is >10,
+        # the carry is 1 and with the insert_value is <10, the carry is 0
+        # another way of saying this is:
+        #      carry = 1 if carry > 10 else 0
+        carry = insert_value // 10 
+
+        # then, keep only the ones place of the insert_value, since we removed
+        # the 1 in the tens place above
+        # if the insert value is >10, this operation gives the ones place
+        # if the insert value is <10, this operation keeps the insert_value the same
+        insert_value = insert_value % 10
+
+        # insert the value into the linked list
+        current_result.next = ListNode(insert_value)
+
+        # update pointers
+        current_result = current_result.next
+        l1 = l1.next if l1 else None
+        l2 = l2.next if l2 else None
+
+    return container.next
