@@ -1,1 +1,2 @@
-# leetcode-solutions
+# LeetCode solutions
+This is a repository of my solutions to practice LeetCode problems in `Python3`. Each solution is in its own file. If my solution differs significantly from the reported solution, then that solution is added to the bottom of the `.py` file and identified as different from my solution via comments in the `.py` file.
